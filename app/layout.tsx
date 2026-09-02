@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-HTSZMT8QPV1m42HvaYs4ywHmXHudh1.png',
         media: '(prefers-color-scheme: light)',
       },
       {

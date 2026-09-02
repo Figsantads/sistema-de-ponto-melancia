@@ -50,7 +50,7 @@ export default async function ColaboradorPage({
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-6">
         <div className="hidden print:flex print:items-center print:justify-between print:border-b print:pb-4">
           <div className="flex items-center gap-3">
-            <img src="/melancia-logo.png" alt="Melancia Foto e Presentes" className="size-16 object-cover" />
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-HTSZMT8QPV1m42HvaYs4ywHmXHudh1.png" alt="Melancia Foto e Presentes" className="size-16 object-cover" />
             <div>
               <p className="text-xl font-bold">Melancia Foto e Presentes</p>
               <p className="text-sm">Relatório mensal de folha de ponto</p>
