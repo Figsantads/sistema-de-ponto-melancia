@@ -102,5 +102,80 @@ export const timeEntries = pgTable(
   }),
 )
 
+export const workSchedules = pgTable("work_schedules", {
+  id: serial("id").primaryKey(),
+  userId: text("userId").notNull(),
+  weeklyMinutes: integer("weeklyMinutes").notNull().default(2640),
+  dailyOvertimeLimit: integer("dailyOvertimeLimit").notNull().default(120),
+  dailyJourneyLimit: integer("dailyJourneyLimit").notNull().default(600),
+  tolerancePerPunch: integer("tolerancePerPunch").notNull().default(5),
+  dailyToleranceLimit: integer("dailyToleranceLimit").notNull().default(10),
+  compensationMonths: integer("compensationMonths").notNull().default(6),
+  effectiveFrom: date("effectiveFrom").notNull(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+})
+
+export const scheduleDays = pgTable("schedule_days", {
+  id: serial("id").primaryKey(),
+  scheduleId: integer("scheduleId").notNull(),
+  weekday: integer("weekday").notNull(),
+  plannedMinutes: integer("plannedMinutes").notNull().default(0),
+})
+
+export const timeEvents = pgTable("time_events", {
+  id: serial("id").primaryKey(),
+  userId: text("userId").notNull(),
+  sourceDate: date("sourceDate").notNull(),
+  kind: text("kind").notNull(),
+  minutes: integer("minutes").notNull(),
+  remainingMinutes: integer("remainingMinutes").notNull(),
+  dueDate: date("dueDate"),
+  origin: text("origin").notNull(),
+  status: text("status").notNull().default("ACTIVE"),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+})
+
+export const occurrences = pgTable("occurrences", {
+  id: serial("id").primaryKey(),
+  userId: text("userId").notNull(),
+  workDate: date("workDate").notNull(),
+  kind: text("kind").notNull(),
+  impact: integer("impact").notNull().default(0),
+  reason: text("reason"),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+})
+
+export const timeOffs = pgTable("time_offs", {
+  id: serial("id").primaryKey(),
+  userId: text("userId").notNull(),
+  kind: text("kind").notNull(),
+  workDate: date("workDate").notNull(),
+  durationMinutes: integer("durationMinutes").notNull(),
+  originalPlannedMinutes: integer("originalPlannedMinutes").notNull(),
+  compensatedMinutes: integer("compensatedMinutes").notNull().default(0),
+  status: text("status").notNull().default("AGUARDANDO_APROVACAO"),
+  reason: text("reason"),
+  requestedBy: text("requestedBy").notNull(),
+  approvedBy: text("approvedBy"),
+  requestedAt: timestamp("requestedAt").notNull().defaultNow(),
+  approvedAt: timestamp("approvedAt"),
+  observation: text("observation"),
+})
+
+export const auditLogs = pgTable("audit_logs", {
+  id: serial("id").primaryKey(),
+  userId: text("userId").notNull(),
+  action: text("action").notNull(),
+  entity: text("entity").notNull(),
+  entityId: text("entityId"),
+  previousValue: text("previousValue"),
+  newValue: text("newValue"),
+  reason: text("reason"),
+  origin: text("origin"),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+})
+
 export type Staff = typeof staff.$inferSelect
 export type TimeEntry = typeof timeEntries.$inferSelect
+export type WorkSchedule = typeof workSchedules.$inferSelect
+export type TimeEvent = typeof timeEvents.$inferSelect
