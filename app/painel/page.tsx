@@ -1,4 +1,5 @@
 import { AppHeader } from "@/components/app-header"
+import { BankHoursSummary } from "@/components/bank-hours-summary"
 import { HistoryTable } from "@/components/history-table"
 import { PunchClock } from "@/components/punch-clock"
 import { SummaryCards } from "@/components/summary-cards"
@@ -32,6 +33,8 @@ export default async function PainelPage() {
   ])
 
   const totals = aggregateDays(entries, profile)
+  const bankBalance = totals.totalOvertime - totals.totalDeficit
+  const pendingPunch = entries.some((entry) => !entry.clockIn || !entry.clockOut)
   const scheduled = scheduledMinutesForStaff(profile)
 
   return (
@@ -51,6 +54,8 @@ export default async function PainelPage() {
         </div>
 
         <PunchClock entry={todayEntry} />
+
+        <BankHoursSummary balance={bankBalance} pendingPunch={pendingPunch} />
 
         <SummaryCards
           totalWorked={totals.totalWorked}
