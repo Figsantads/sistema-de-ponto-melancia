@@ -14,6 +14,8 @@ import { getEntriesForUser, listStaff } from "@/lib/queries"
 import { requireAdmin } from "@/lib/session"
 import { aggregateDays } from "@/lib/time-utils"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminPage() {
   const admin = await requireAdmin()
   const allStaff = await listStaff()
